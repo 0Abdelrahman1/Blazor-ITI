@@ -1,0 +1,63 @@
+﻿@page "/TraineeDetails/{Id:int}"
+<h3>TraineeDetails</h3>
+
+@code
+{
+	[Parameter]
+	public int Id { get; set; }
+
+	Trainee? CurrentTrainee { get; set; }
+
+	protected override Task OnInitializedAsync()
+	{
+	    CurrentTrainee = InternshipContext.Trainees.FirstOrDefault(t => t.Id == Id);
+		return base.OnInitializedAsync();
+	} 
+}
+
+@if (CurrentTrainee == null)
+{
+	<p><em>Loading.....</em></p>
+}
+else
+{
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label">Employee ID</label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.Id</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Name</label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.Name</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Email</label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.Email</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Gender </label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.Gender</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Phone Number </label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.MobileNo</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Date Of Birth</label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.DateOfBirth</label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Graduated </label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.IsGraduated </label>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-2 col-form-label"> Track </label>
+        <label class="col-sm-10 col-form-label">@CurrentTrainee.Track?.Name </label>
+    </div>
+}

@@ -1,0 +1,23 @@
+﻿@page "/TraineeDelete/{Id:int}"
+<h3>TraineeDelete</h3>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	Trainee? DeleteTrainee { get; set; }
+
+	protected override Task OnInitializedAsync()
+	{
+	    DeleteTrainee = InternshipContext.Trainees.FirstOrDefault(t => t.Id == Id);
+		if (DeleteTrainee != null)
+			InternshipContext.Trainees.Remove(DeleteTrainee);
+		return base.OnInitializedAsync();
+	} 
+}
+
+<div>
+	<h3 class="alert alert-danger">
+		Trainee: @DeleteTrainee?.Name has been deleted successfully.
+	</h3>
+</div>

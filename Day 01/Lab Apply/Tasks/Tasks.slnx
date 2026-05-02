@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BlazorCRUD/BlazorCRUD.csproj" />
+  <Project Path="DAL/DAL.csproj" />
+</Solution>
