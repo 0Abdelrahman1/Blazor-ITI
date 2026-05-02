@@ -1,0 +1,106 @@
+########################
+# 1) Ignore everything
+########################
+*
+!.gitignore
+
+########################
+# 2) Allow Day folders
+########################
+!Day */
+
+########################
+# 3) Inside Day folders:
+#    allow only Lab Apply
+########################
+Day */**
+!Day */Lab Apply/
+!Day */Lab Apply/**
+
+# no .mp4
+*.mp4
+
+
+
+########################
+# Build outputs
+########################
+bin/
+obj/
+**/bin/
+**/obj/
+
+########################
+# User-specific files
+########################
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+########################
+# IDE folders
+########################
+.vs/
+.vscode/
+.idea/
+
+########################
+# Logs & temp
+########################
+*.log
+*.cache
+*.tmp
+*.temp
+
+########################
+# OS junk
+########################
+.DS_Store
+Thumbs.db
+
+########################
+# Node (if used)
+########################
+node_modules/
+
+########################
+# Blazor WebAssembly build
+########################
+wwwroot/_framework/
+wwwroot/_bin/
+
+########################
+# Static web assets cache
+########################
+**/wwwroot/lib/
+
+########################
+# NuGet
+########################
+packages/
+*.nupkg
+*.snupkg
+
+########################
+# Publish output
+########################
+publish/
+wwwroot/dist/
+
+########################
+# Rider / ReSharper
+########################
+_ReSharper*/
+*.DotSettings.user
+
+########################
+# VS Code test / debug
+########################
+.vscode-test/
+
+########################
+# Secrets (important)
+########################
+appsettings.Development.json
+secrets.json
