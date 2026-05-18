@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BlazorCRUD/BlazorCRUD.csproj" />
+  <Project Path="Shared Entities/Shared Entities.csproj" />
+  <Project Path="WebAPI_DataAccessLayer_EF/WebAPI_DataAccessLayer_EF.csproj" />
+</Solution>

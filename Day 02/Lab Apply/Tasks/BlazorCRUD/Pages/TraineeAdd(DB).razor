@@ -1,0 +1,101 @@
+﻿@page "/TraineeAddDB"
+<h3>TraineeAdd (DB)</h3>
+
+@inject NavigationManager NavigationManager
+<h3>TraineeAdd</h3>
+
+@code
+{
+    Trainee NewTrainee { get; set; } = new Trainee();
+    public bool IsSaved { get; set; } = false;
+	List<Track> Tracks { get; set; } = new();
+
+
+    [Inject]
+	public IBaseRepository<Trainee> TraineeRepository { get; set; }
+    [Inject]
+	public IBaseRepository<Track> TrackRepository { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Tracks = await TrackRepository.GetAllAsync();
+    }
+
+    protected async Task HandleValidSubmit()
+    {
+        IsSaved = true;
+        await TraineeRepository.AddAsync(NewTrainee);
+        NavigationManager.NavigateTo("/TraineeOverviewDB");
+    }
+
+    protected void HandleInValidSubmit()
+    {
+        IsSaved = false;
+    }
+}
+
+@if (NewTrainee == null)
+{
+    <p><em>Loading.....</em></p>
+}
+else if (!IsSaved)
+{
+    <EditForm Model="@NewTrainee" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInValidSubmit">
+
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <InputText class="col-sm-10 col-form-label" @bind-Value="NewTrainee.Name" placeholder="Enter Name" />
+            <ValidationMessage For="@(() => NewTrainee.Name)"></ValidationMessage>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <InputText class="col-sm-10 col-form-label" @bind-Value="NewTrainee.Email" placeholder="Enter Email" />
+            <ValidationMessage For="@(() => NewTrainee.Email)"></ValidationMessage>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Birth Date</label>
+            <InputDate class="col-sm-10 col-form-label" @bind-Value="NewTrainee.DateOfBirth" placeholder="Enter Birth Date" />
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label">Phone Number</label>
+            <InputText class="col-sm-10 col-form-label" @bind-Value="NewTrainee.MobileNo" placeholder="Enter Phone Number" />
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label"> Gender </label>
+            <InputSelect class="col-sm-10 col-form-label" @bind-Value="NewTrainee.Gender" placeholder="Enter Gender">
+                <option value="@(Gender.Male)">Male</option>
+                <option value="@(Gender.Female)">Female</option>
+            </InputSelect>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label"> Graduated </label>
+            <div class="col-sm-10">
+                <InputCheckbox @bind-Value="NewTrainee.IsGraduated" />
+                <label class="form-check-label">Is Graduated</label>
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label class="col-sm-2 col-form-label"> Track </label>
+            <InputSelect class="col-sm-10 col-form-label" @bind-Value="NewTrainee.TrackId" placeholder="Enter Track">
+
+                @foreach (var track in Tracks)
+                {
+                    <option value="@track.Id"> @track.Name </option>
+                }
+
+            </InputSelect>
+        </div>
+
+        <button class="btn btn-primary" type="submit"> Save Trainee </button>
+
+    </EditForm>
+}

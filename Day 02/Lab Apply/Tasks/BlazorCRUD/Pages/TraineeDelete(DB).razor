@@ -1,0 +1,26 @@
+﻿@page "/TraineeDeleteDB/{Id:int}"
+<h3>TraineeDelete (DB)</h3>
+
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	[Inject]
+	public IBaseRepository<Trainee> TraineeRepository { get; set; }
+
+	Trainee? DeleteTrainee { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		DeleteTrainee = await TraineeRepository.GetByKeyAsync(Id);
+		if (DeleteTrainee != null)
+			await TraineeRepository.DeleteAsync(DeleteTrainee.Id);
+	}
+}
+
+<div>
+	<h3 class="alert alert-danger">
+		Trainee: @DeleteTrainee?.Name has been deleted successfully.
+	</h3>
+</div>
